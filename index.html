@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>El Tesoro de Nuestro Amor</title>
+    <meta name="description" content="Una aventura para encontrar algo que vale más que todo el oro del mundo." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230d0b08'/%3E%3Ccircle cx='50' cy='50' r='36' fill='none' stroke='%23d4af6a' stroke-width='5'/%3E%3Cpath d='M50 20 L58 50 L50 80 L42 50 Z' fill='%23d4af6a'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Mrs+Saint+Delafield&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="styles/map.css" />
+    <link rel="stylesheet" href="styles/scenes.css" />
+  </head>
+  <body>
+    <div id="scene-curtain"></div>
+
+    <button type="button" id="sound-toggle" class="sound-toggle" aria-label="Activar sonido ambiente" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9.5 V14.5 H8 L13 19 V5 L8 9.5 Z" />
+        <path class="sound-toggle__wave" d="M16.2 8.5 Q19 12 16.2 15.5" />
+        <path class="sound-toggle__mute" d="M16.5 8.5 L21 15.5 M21 8.5 L16.5 15.5" />
+      </svg>
+    </button>
+
+    <main id="app">
+      <section class="scene scene--prologo scene--active" data-scene="prologo">
+        <svg class="prologo__compass" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="50" cy="50" r="38" />
+          <circle cx="50" cy="50" r="2" fill="currentColor" stroke="none" />
+          <path d="M50 8 L50 22 M50 78 L50 92 M8 50 L22 50 M78 50 L92 50" />
+          <path d="M50 18 L56 50 L50 82 L44 50 Z" fill="currentColor" opacity="0.15" />
+          <text x="50" y="16" font-size="9" text-anchor="middle" fill="currentColor" stroke="none">N</text>
+        </svg>
+
+        <div class="prologo__parchment">
+          <h1 class="prologo__title">El Tesoro de Nuestro Amor</h1>
+          <p class="prologo__subtitle">Una aventura para encontrar algo que vale más que todo el oro del mundo.</p>
+          <button type="button" class="btn-primary prologo__cta" id="begin-adventure">Comenzar la aventura</button>
+        </div>
+      </section>
+
+      <section class="scene scene--mapa-principal" data-scene="mapa-principal">
+        <p class="narrator-line" id="narrator-line" aria-live="polite"></p>
+        <svg class="map-canvas" id="map-canvas" viewBox="0 0 100 92" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa del tesoro">
+          <defs>
+            <filter id="paper-grain" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="noise" />
+              <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0" />
+            </filter>
+            <filter id="ink-wobble" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" result="wobble" seed="7" />
+              <feDisplacementMap in="SourceGraphic" in2="wobble" scale="1.6" />
+            </filter>
+            <pattern id="sea-hatch" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="3" stroke="var(--ink)" stroke-width="0.25" opacity="0.3" />
+            </pattern>
+
+            <symbol id="icon-tercer-piso" viewBox="0 0 24 24">
+              <path d="M4 12 L12 4 L20 12" />
+              <rect x="6.5" y="12" width="11" height="8.5" />
+              <circle cx="12" cy="16.5" r="1.4" />
+              <path d="M6.5 16.5 L4.5 16.5 M17.5 16.5 L19.5 16.5" opacity="0.6" />
+            </symbol>
+            <symbol id="icon-armario" viewBox="0 0 24 24">
+              <rect x="5" y="4.5" width="14" height="16.5" />
+              <line x1="12" y1="4.5" x2="12" y2="21" />
+              <circle cx="9.3" cy="13" r="0.7" />
+              <circle cx="14.7" cy="13" r="0.7" />
+              <path d="M5 9 L19 9 M5 16 L19 16" opacity="0.5" />
+            </symbol>
+            <symbol id="icon-moto" viewBox="0 0 24 24">
+              <circle cx="6.5" cy="17.5" r="3" />
+              <circle cx="17.5" cy="17.5" r="3" />
+              <path d="M6.5 17.5 L10.5 10 L15 10 L17.5 17.5" />
+              <path d="M10.5 10 L8.5 6" />
+              <path d="M15 10 L19 8.5" />
+              <path d="M4 21 L2.5 19" opacity="0.6" />
+              <path d="M20 21 L21.5 19" opacity="0.6" />
+            </symbol>
+            <symbol id="icon-floristeria" viewBox="0 0 24 24">
+              <circle cx="12" cy="8" r="3.2" />
+              <circle cx="12" cy="8" r="1.1" opacity="0.6" />
+              <path d="M12 11.2 L12 21" />
+              <path d="M12 15 C9 15 8 17.2 8 19" />
+              <path d="M12 16.5 C15 16.5 16 18.5 16 20.3" />
+            </symbol>
+            <symbol id="icon-alfajores" viewBox="0 0 24 24">
+              <ellipse cx="12" cy="9" rx="7" ry="3" />
+              <ellipse cx="12" cy="15.2" rx="7" ry="3" />
+              <path d="M5.3 12 Q8.6 14.4 12 12 T18.7 12" />
+              <circle cx="8" cy="12.3" r="0.5" opacity="0.7" />
+              <circle cx="16" cy="12.3" r="0.5" opacity="0.7" />
+            </symbol>
+            <symbol id="icon-tesoro" viewBox="0 0 24 24">
+              <path d="M4 10.5 Q12 3.5 20 10.5" />
+              <rect x="4" y="10.5" width="16" height="9" />
+              <rect x="10.2" y="12.3" width="3.6" height="2.8" />
+              <circle cx="12" cy="12.4" r="1.3" />
+              <path d="M4 14.5 L20 14.5" opacity="0.5" />
+            </symbol>
+          </defs>
+
+          <g id="map-art" aria-hidden="true">
+            <rect x="0" y="0" width="100" height="92" fill="var(--parchment-shadow)" />
+            <rect x="0" y="0" width="100" height="92" fill="url(#sea-hatch)" />
+
+            <!-- Isla del Hogar: tercer piso + armario -->
+            <path
+              class="map-island"
+              d="M39.5,60.5 Q44,66 39.5,72 Q35,78 30,83.5 Q25,89 19.5,84 Q14,79 10.5,72.5 Q7,66 10.5,59.5 Q14,53 19.5,47.5 Q25,42 30,48.5 Q35,55 39.5,60.5 Z"
+            />
+            <!-- Isla del Camino: moto + floristería, con motivo de montaña -->
+            <path
+              class="map-island"
+              d="M63,27.5 Q67,32 63.5,37 Q60,42 55,46 Q50,50 45.5,46 Q41,42 37.5,37 Q34,32 37,26.5 Q40,21 45,17 Q50,13 54.5,18 Q59,23 63,27.5 Z"
+            />
+            <path class="map-mountain" d="M44 30 L50 20 L56 30 Z M48 30 L52 24 L56 30" />
+            <!-- Isla del Tesoro: alfajores + cofre -->
+            <path
+              class="map-island"
+              d="M92,45 Q95,53 92,61 Q89,69 84.5,76.5 Q80,84 75,77 Q70,70 67.5,61.5 Q65,53 67.5,44 Q70,35 75,29 Q80,23 84.5,30 Q89,37 92,45 Z"
+            />
+
+            <!-- islotes decorativos -->
+            <ellipse class="map-islet" cx="55" cy="78" rx="5" ry="3" />
+            <ellipse class="map-islet" cx="12" cy="18" rx="4" ry="2.6" />
+
+            <!-- manchas de tinta -->
+            <path class="map-ink-stain" d="M20 14 Q24 11 27 14 Q29 17 25 18 Q20 18 20 14 Z" />
+            <path class="map-ink-stain" d="M58 84 Q62 82 64 85 Q65 88 61 88 Q57 87 58 84 Z" />
+
+            <!-- pequeño barco -->
+            <g class="map-ship" transform="translate(22,32)">
+              <path d="M-4 3 L4 3 L2.5 6 L-2.5 6 Z" />
+              <line x1="0" y1="3" x2="0" y2="-5" />
+              <path d="M0 -5 L4.5 0 L0 0 Z" />
+            </g>
+
+            <!-- rosa de los vientos -->
+            <g class="map-compass" transform="translate(86,14)">
+              <circle r="9" />
+              <path d="M0 -9 L0 9 M-9 0 L9 0" />
+              <path d="M0 -9 L2 0 L0 9 L-2 0 Z" />
+              <text y="-11" text-anchor="middle">N</text>
+            </g>
+          </g>
+
+          <g id="map-routes"></g>
+          <g id="map-markers"></g>
+
+          <rect x="0" y="0" width="100" height="92" filter="url(#paper-grain)" />
+        </svg>
+      </section>
+
+      <section class="scene scene--stop-detail" data-scene="stop-detail">
+        <div class="scene__panel" id="stop-detail-content"></div>
+      </section>
+
+      <section class="scene scene--treasure" data-scene="treasure">
+        <div class="scene__panel" id="treasure-content"></div>
+      </section>
+
+      <section class="scene scene--final-map" data-scene="final-map">
+        <div class="scene__panel" id="final-map-content"></div>
+      </section>
+    </main>
+
+    <dialog id="hint-modal" class="hint-modal">
+      <div class="hint-modal__panel">
+        <p class="hint-modal__title" id="hint-modal-title">El capitán te da una pista...</p>
+        <div class="hint-modal__list" id="hint-modal-list"></div>
+        <div class="hint-modal__actions">
+          <button type="button" class="btn-link" id="hint-modal-more">Otra pista</button>
+          <button type="button" class="btn-link" id="hint-modal-close">Volver a la búsqueda</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="scripts/content.js"></script>
+    <script src="scripts/state.js"></script>
+    <script src="scripts/narrator.js"></script>
+    <script src="scripts/soundscape.js"></script>
+    <script src="scripts/transitions.js"></script>
+    <script src="scripts/hints.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>

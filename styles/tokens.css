@@ -1,0 +1,50 @@
+/**
+ * tokens.css
+ * La constitución visual del proyecto: todo color, tipografía, espaciado
+ * y easing vive aquí como variable CSS. La Fase B y C consumen estos
+ * tokens; no se define ningún color suelto fuera de este archivo.
+ */
+:root {
+  /* Color: sistema único que muta hacia el romance vía --romance (0..1) */
+  --bg-abyss: #0d0b08;
+  --parchment-light: #ede0c0;
+  --parchment-shadow: #c9b183;
+  --ink: #2a1f14;
+  --gold: #b08d3e;
+  --gold-bright: #d4af6a;
+  --shadow-deep: #1c1712;
+  --romance-deep: #7a2e35;
+  --romance-bloom: #d98a93;
+
+  --state-locked: #6b6459;
+  --state-available: var(--gold);
+  --state-available-glow: var(--gold-bright);
+  --state-completed: var(--romance-deep);
+
+  /* Nivel de romance de la escena activa (0 = pura aventura, 1 = puro romance). Cada escena lo sobreescribe. */
+  --romance: 0.2;
+  --accent-romance: color-mix(in srgb, var(--romance-deep) calc((1 - var(--romance)) * 100%), var(--romance-bloom) calc(var(--romance) * 100%));
+
+  /* Tipografía */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "EB Garamond", Georgia, serif;
+  --font-script: "Mrs Saint Delafield", cursive;
+
+  /* Espaciado */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* Movimiento */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-curtain: 420ms;
+  --duration-micro: 220ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,417 @@
+/**
+ * components.css
+ * Piezas reutilizables: botones narrativos, formulario de código secreto,
+ * sello de tinta, modal de ayuda progresiva, línea del narrador.
+ */
+.btn-primary {
+  appearance: none;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold-bright);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color var(--duration-micro) var(--ease-standard),
+    color var(--duration-micro) var(--ease-standard);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--gold);
+  color: var(--shadow-deep);
+}
+
+.btn-link {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--gold-bright);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: var(--space-sm) 0 0;
+}
+
+.code-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: var(--space-md) 0;
+  max-width: 320px;
+}
+
+.code-form label {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--parchment-shadow);
+}
+
+.code-form input {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--parchment-shadow);
+  background: var(--bg-abyss);
+  color: var(--parchment-light);
+  border-radius: 2px;
+}
+
+.code-form button {
+  align-self: flex-start;
+  appearance: none;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold-bright);
+  padding: 0.6rem 1.4rem;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.code-form__feedback {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.code-form__feedback--ok {
+  color: var(--gold-bright);
+  text-transform: uppercase;
+}
+
+.narrator-line {
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: var(--accent-romance);
+  min-height: 1.6em;
+}
+
+/* Botón de ayuda */
+.btn-help {
+  appearance: none;
+  align-self: center;
+  border: 1px solid var(--parchment-shadow);
+  background: transparent;
+  color: var(--parchment-shadow);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: var(--space-xs);
+  transition: border-color var(--duration-micro) var(--ease-standard),
+    color var(--duration-micro) var(--ease-standard);
+}
+
+.btn-help:hover,
+.btn-help:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+}
+
+/* Microinteracción: código incorrecto */
+.code-form--shake {
+  animation: code-form-shake 320ms var(--ease-standard);
+}
+
+.code-form--success input,
+.code-form--success button {
+  opacity: 0.4;
+}
+
+@keyframes code-form-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+/* Microinteracción: sello de tinta al verificar código */
+.ink-stamp {
+  align-self: center;
+  margin-top: var(--space-sm);
+  padding: 0.5rem 1.4rem;
+  border: 2px solid var(--romance-deep);
+  border-radius: 3px;
+  color: var(--romance-deep);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: scale(1.8) rotate(-9deg);
+  opacity: 0;
+  transition: transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms var(--ease-standard);
+}
+
+.ink-stamp--show {
+  transform: scale(1) rotate(-4deg);
+  opacity: 1;
+}
+
+/* Modal de ayuda progresiva */
+.hint-modal {
+  border: none;
+  padding: 0;
+  background: transparent;
+  max-width: min(420px, 88vw);
+  width: 100%;
+}
+
+.hint-modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hint-modal__panel {
+  background: var(--parchment-light);
+  color: var(--ink);
+  border: 1px solid var(--parchment-shadow);
+  border-radius: 4px;
+  padding: var(--space-md);
+  transform: scaleY(0.35);
+  transform-origin: top center;
+  opacity: 0;
+  transition: transform 320ms var(--ease-standard), opacity 220ms var(--ease-standard);
+}
+
+.hint-modal--open .hint-modal__panel {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.hint-modal__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin: 0 0 var(--space-sm);
+  color: var(--romance-deep);
+}
+
+.hint-modal__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.hint-modal__hint {
+  margin: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--parchment-shadow);
+}
+
+.hint-modal__hint:last-child {
+  border-bottom: none;
+}
+
+.hint-modal__hint--new {
+  animation: hint-ink-write 500ms var(--ease-standard);
+}
+
+@keyframes hint-ink-write {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.hint-modal__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.hint-modal__actions .btn-link {
+  padding: 0;
+}
+
+.hint-modal__actions .btn-link:disabled {
+  opacity: 0.4;
+  cursor: default;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-stamp {
+    transform: none;
+  }
+  .ink-stamp--show {
+    transform: none;
+  }
+}
+
+/* Revelado escalonado de texto (cofre, mapa final) */
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms var(--ease-standard), transform 500ms var(--ease-standard);
+}
+
+.reveal-fade--show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-line {
+  opacity: 0;
+  animation: fade-rise 700ms var(--ease-standard) forwards;
+  animation-play-state: running;
+}
+
+/* El cofre */
+.chest-button {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.chest-svg {
+  width: min(220px, 55vw);
+  overflow: visible;
+}
+
+.chest-shadow {
+  fill: #000;
+  opacity: 0.4;
+}
+
+.chest-glow {
+  fill: url(#chest-glow-gradient);
+  opacity: 0;
+  transition: opacity 500ms var(--ease-standard);
+}
+
+.chest-body,
+.chest-lid path {
+  fill: var(--parchment-shadow);
+  stroke: var(--ink);
+  stroke-width: 0.8;
+}
+
+.chest-band,
+.chest-lock {
+  fill: var(--gold);
+  stroke: var(--ink);
+  stroke-width: 0.5;
+}
+
+.chest-lock-hole {
+  fill: var(--bg-abyss);
+}
+
+.chest-lid {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 900ms cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+.chest-button--open .chest-lid {
+  transform: rotate(-42deg) translateY(-1px);
+}
+
+.chest-button--open .chest-glow {
+  opacity: 0.9;
+}
+
+.chest-hint {
+  color: var(--parchment-shadow);
+  font-style: italic;
+  font-size: 0.9rem;
+  transition: opacity var(--duration-micro) var(--ease-standard);
+}
+
+.chest-hint--hidden {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chest-lid {
+    transition: none;
+  }
+}
+
+/* Control discreto de sonido */
+.sound-toggle {
+  position: fixed;
+  top: max(var(--space-sm), env(safe-area-inset-top));
+  right: max(var(--space-sm), env(safe-area-inset-right));
+  z-index: 110;
+  appearance: none;
+  border: 1px solid rgba(176, 141, 62, 0.4);
+  background: rgba(13, 11, 8, 0.55);
+  backdrop-filter: blur(2px);
+  color: var(--parchment-shadow);
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--duration-micro) var(--ease-standard),
+    border-color var(--duration-micro) var(--ease-standard);
+}
+
+.sound-toggle:hover,
+.sound-toggle:focus-visible {
+  color: var(--gold-bright);
+  border-color: var(--gold);
+}
+
+.sound-toggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.sound-toggle svg path:first-child {
+  stroke: none;
+}
+
+.sound-toggle .sound-toggle__wave {
+  fill: none;
+  opacity: 0;
+}
+
+.sound-toggle .sound-toggle__mute {
+  fill: none;
+  opacity: 1;
+}
+
+.sound-toggle[aria-pressed="true"] .sound-toggle__wave {
+  opacity: 1;
+}
+
+.sound-toggle[aria-pressed="true"] .sound-toggle__mute {
+  opacity: 0;
+}

@@ -1,0 +1,185 @@
+/**
+ * scenes.css
+ * Estructura de cada escena y la cortina de transición entre ellas.
+ * El acabado de pergamino/textura llega en la Fase B/C; aquí vive la
+ * composición y el ritmo de aparición.
+ */
+#scene-curtain {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-abyss);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-curtain) var(--ease-standard);
+  z-index: 100;
+}
+
+#scene-curtain.curtain--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scene {
+  display: none;
+  min-height: 100dvh;
+  width: 100%;
+  padding: var(--space-lg) var(--space-md);
+  flex-direction: column;
+}
+
+.scene--active {
+  display: flex;
+}
+
+/* Prólogo */
+.scene--prologo {
+  --romance: 0.15;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-md);
+}
+
+.prologo__compass {
+  width: 96px;
+  height: 96px;
+  color: var(--gold);
+  opacity: 0;
+  animation: fade-rise 900ms var(--ease-standard) forwards;
+}
+
+.prologo__parchment {
+  max-width: 480px;
+  opacity: 0;
+  animation: fade-rise 900ms var(--ease-standard) 400ms forwards;
+}
+
+.prologo__title {
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  color: var(--gold-bright);
+}
+
+.prologo__subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--parchment-shadow);
+  margin-bottom: var(--space-lg);
+}
+
+.prologo__cta {
+  opacity: 0;
+  animation: fade-rise 900ms var(--ease-standard) 900ms forwards;
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mapa principal */
+.scene--mapa-principal {
+  --romance: 0.25;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.scene__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  color: var(--parchment-shadow);
+}
+
+.scene__body-text {
+  max-width: 480px;
+  color: var(--parchment-light);
+}
+
+/* Parada / tesoro / mapa final: panel centrado sobre pergamino */
+.scene--stop-detail,
+.scene--treasure,
+.scene--final-map {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.scene--treasure {
+  --romance: 0.8;
+}
+
+.scene--final-map {
+  --romance: 0.95;
+  background: color-mix(in srgb, var(--bg-abyss) 60%, var(--romance-bloom) 8%);
+}
+
+.scene__panel {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.final-map__line {
+  color: var(--parchment-light);
+}
+
+.final-map__closing {
+  font-family: var(--font-script);
+  font-size: 1.4rem;
+  color: var(--accent-romance);
+  margin: 0.2rem 0;
+}
+
+.final-map__destination {
+  margin-top: var(--space-md);
+  font-family: var(--font-display);
+  color: var(--gold-bright);
+}
+
+.final-map-ornament {
+  width: min(260px, 70vw);
+  margin: var(--space-sm) auto;
+  overflow: visible;
+}
+
+.final-map-ornament__path {
+  fill: none;
+  stroke: var(--accent-romance);
+  stroke-width: 0.6;
+  stroke-dasharray: 1.4 1.6;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+
+.final-map-ornament__bloom circle {
+  fill: var(--romance-bloom);
+  opacity: 0.85;
+}
+
+.final-map-ornament__heart {
+  fill: var(--romance-bloom);
+  opacity: 0.9;
+}
+
+.final-map-ornament__x {
+  fill: none;
+  stroke: var(--gold-bright);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+/* Cofre */
+.chest-button {
+  margin-bottom: var(--space-xs);
+}
+
+.chest-hint {
+  margin-bottom: var(--space-md);
+}
