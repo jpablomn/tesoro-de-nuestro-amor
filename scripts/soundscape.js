@@ -186,13 +186,28 @@ window.TesoroSound = (function () {
     enabled = window.TesoroState.isSoundEnabled();
   }
 
+  /**
+   * El audio es un extra, nunca un requisito: si el navegador lanza un error
+   * aquí (permisos, Web Audio no disponible, etc.), no debe romper nada de
+   * la experiencia. Cada método público queda blindado con este wrapper.
+   */
+  function safe(fn) {
+    return function () {
+      try {
+        return fn.apply(null, arguments);
+      } catch (err) {
+        return undefined;
+      }
+    };
+  }
+
   return {
-    init: init,
-    setEnabled: setEnabled,
-    isEnabled: isEnabled,
-    setRomance: setRomance,
-    playChime: playChime,
-    playRustle: playRustle,
-    playThud: playThud,
+    init: safe(init),
+    setEnabled: safe(setEnabled),
+    isEnabled: safe(isEnabled),
+    setRomance: safe(setRomance),
+    playChime: safe(playChime),
+    playRustle: safe(playRustle),
+    playThud: safe(playThud),
   };
 })();
