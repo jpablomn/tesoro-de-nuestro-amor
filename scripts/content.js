@@ -163,7 +163,7 @@ window.TesoroConfig = {
       "Porque hay tesoros que no necesitan estar escondidos.",
       "Mi verdadero tesoro siempre has sido tú.",
     ],
-    closingMessages: ["Sigue la ruta.", "Busca la X.", "Hay alguien esperándote."],
+    closingMessages: ["Sigue la ruta.", "Tu próximo destino te espera en el almacén.", "Hay alguien esperándote."],
     /** Configuración editable del destino final. */
     destination: {
       label: "",
